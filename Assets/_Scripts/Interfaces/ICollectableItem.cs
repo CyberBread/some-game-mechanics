@@ -4,8 +4,8 @@ using UnityEngine;
 
 public interface ICollectableItem
 {
+    bool isEquiped { get; set; }
     void Collect();
     string GetName();
     GameObject GetGameObject();
-
 }

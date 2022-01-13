@@ -15,11 +15,14 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
     [SerializeField] private protected WeaponName weaponName = WeaponName.None;
     [SerializeField] private protected Transform projectileAnchor;
     [SerializeField] private protected float delayBetweenShots = 0.5f;
+    //private protected bool isEqiuped = false;
 
     abstract public void SetWeaponName();
     abstract public void MainShot();
     abstract public void AlternativeShot();
     abstract public void Reload();
+
+    public bool isEquiped { get; set; }
 
     public void Collect()
     {
@@ -36,6 +39,4 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
     {
         return weaponName.ToString();
     }
-
-
 }

@@ -13,8 +13,8 @@ TagManager:
   - UI
   - 
   - 
-  - Raycast Items
-  - 
+  - CollectableItems
+  - ShotTarget
   - 
   - 
   - 

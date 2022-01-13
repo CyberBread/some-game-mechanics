@@ -14,9 +14,6 @@ public class BubleGun : Weapon
     private byte projectilesInClip;
     private List<BubbleProjectile> shootedPrjct;
 
-
-
-
     private void Awake()
     {
         SetWeaponName();
@@ -26,23 +23,26 @@ public class BubleGun : Weapon
 
     private void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (isEquiped)
         {
-            MainShot();
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Reload();
-        }
-        if (Input.GetButton("Fire2"))
-        {
-            AlternativeShot();
+            if (Input.GetButtonDown("Fire1"))
+            {
+                MainShot();
+            }
+            if (Input.GetButtonDown("Reload"))
+            {
+                Reload();
+            }
+            if (Input.GetButton("Fire2"))
+            {
+                AlternativeShot();
+            }
         }
     }
 
     public override void AlternativeShot()
     {
-        if(lastPrjct == null)
+        if (lastPrjct == null)
         {
             return;
         }
@@ -51,7 +51,7 @@ public class BubleGun : Weapon
 
     public override void MainShot()
     {
-        if(projectilesInClip == 0)
+        if (projectilesInClip == 0)
         {
             return;
         }
@@ -75,7 +75,7 @@ public class BubleGun : Weapon
     public override void Reload()
     {
         projectilesInClip = clipCapicity;
-        for(int i = 0; i<shootedPrjct.Count; i++)
+        for (int i = 0; i < shootedPrjct.Count; i++)
         {
             Destroy(shootedPrjct[i].gameObject);
         }

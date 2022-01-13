@@ -5,18 +5,20 @@ using UnityEngine;
 public class ViewController : MonoBehaviour
 {
     [SerializeField] private Transform mainCameraTransform;
-    [SerializeField] private float minVerticalRotation = -45f;
-    [SerializeField] private float maxVerticalRotation = 45f;
+    [SerializeField] private float minVerticalRotation = -70f;
+    [SerializeField] private float maxVerticalRotation = 80f;
     [SerializeField] private float sensitivity = 4f;
 
     private float rotY = 0;
-    private Vector3 moveDirection = Vector3.zero;
+    private bool cursorIsLock = false;
 
     // Start is called before the first frame update
     void Start()
     {
         if (mainCameraTransform == null)
             mainCameraTransform = GetComponentInChildren<Camera>().transform;
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -27,5 +29,10 @@ public class ViewController : MonoBehaviour
         rotY -= Input.GetAxis("Mouse Y") * sensitivity;
         rotY = Mathf.Clamp(rotY, minVerticalRotation, maxVerticalRotation);
         mainCameraTransform.localEulerAngles = new Vector3(rotY, transform.rotation.x, 0);
+    }
+
+    private void CursorHide()
+    {
+
     }
 }

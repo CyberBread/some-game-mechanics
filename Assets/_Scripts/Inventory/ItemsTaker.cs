@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ItemsTaker : MonoBehaviour
 {
+    private readonly int collectableItemLayerMask = 1 << 8;
+    private float takeDistance = 2f;
+
     private Inventory inventory;
     private ICollectableItem item;
     private SimpleRaycaster simpleRaycaster;
@@ -18,7 +21,7 @@ public class ItemsTaker : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            RaycastHit hittedItem = simpleRaycaster.RaycastFromViewportCenter();
+            RaycastHit hittedItem = simpleRaycaster.RaycastFromViewportCenter(takeDistance, collectableItemLayerMask);
             if(hittedItem.transform == null)
             {
                 return;

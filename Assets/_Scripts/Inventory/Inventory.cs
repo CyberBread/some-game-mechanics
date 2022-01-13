@@ -16,8 +16,11 @@ public class Inventory : MonoBehaviour
         {
             EquipItem("BubleGun");
         }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            EquipItem("Colt1911");
+        }
     }
-
 
     public bool AddItem(ICollectableItem item)
     {
@@ -36,6 +39,10 @@ public class Inventory : MonoBehaviour
         {
             return;
         }
+        if(equipedItem != null)
+        {
+            UneqipItem(equipedItem);
+        }
 
         items.TryGetValue(itemName, out ICollectableItem item);
         GameObject itemGO = item.GetGameObject();
@@ -44,6 +51,13 @@ public class Inventory : MonoBehaviour
         itemGO.transform.position = itemAnchor.position;
         itemGO.transform.rotation = itemAnchor.rotation;
 
+        item.isEquiped = true;
         equipedItem = item;
+    }
+
+    public void UneqipItem(ICollectableItem equipedItem)
+    {
+        equipedItem.isEquiped = false;
+        equipedItem.GetGameObject().SetActive(false);
     }
 }

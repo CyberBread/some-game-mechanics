@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class Colt1911 : Weapon
 {
+    private readonly int shotItemLayerMask = 1 << 0;
+    private float shotDistance = 50f;
+    private SimpleRaycaster raycaster;
+
+    private void Start()
+    {
+        raycaster = GetComponent<SimpleRaycaster>();
+    }
     public override void AlternativeShot()
     {
         throw new System.NotImplementedException();
@@ -11,7 +19,7 @@ public class Colt1911 : Weapon
 
     public override void MainShot()
     {
-        throw new System.NotImplementedException();
+        raycaster.RaycastFromViewportCenter(10, shotItemLayerMask);
     }
 
     public override void Reload()
