@@ -41,8 +41,8 @@ public class HidingGun : Weapon
 
     public override void MainShot()
    {
-        RaycastHit hit = RaycastExtensions.RaycastFromViewportCenter(shotDistance, 1 << LayerMask.NameToLayer("Default"));
-        StartCoroutine(Fade(hit.transform.GetComponent<Renderer>()));
+        //RaycastHit hit = RaycastExtensions.RaycastFromViewportCenter(shotDistance, 1 << LayerMask.NameToLayer("Default"));
+        //StartCoroutine(Fade(hit.transform.GetComponent<Renderer>()));
     }
 
     public override void Reload()

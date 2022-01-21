@@ -13,34 +13,33 @@ public class SpawnPlatform : MonoBehaviour
 
     private void Start()
     {
-        Spawn();
+        SpawnAndSetPosition();
     }
 
     private void Update()
     {
         if (spawnedObject.transform.IsChildOf(transform))
         {
-            Levitate();
+            LevitateAnObject();
         }
     }
 
-    private void Levitate()
+    private void LevitateAnObject()
     {
         Vector3 deltaRot = Time.deltaTime * Vector3.up * rotationSpeed;
         Vector3 newRot = spawnedObjectT.rotation.eulerAngles + deltaRot;
         spawnedObjectT.eulerAngles = newRot;
     }
 
-    private void Spawn()
+    private void SpawnAndSetPosition()
     {
         spawnedObject = Instantiate<GameObject>(spawnObjectPrefab);
 
+        Vector3 newPosition = transform.position;
+        newPosition.y += levitationHeight;
+
         spawnedObjectT = spawnedObject.transform;
-        Vector3 spawnPosition = spawnedObjectT.position;
-        spawnPosition.y += levitationHeight;
-        spawnedObjectT.position = spawnPosition;
+        spawnedObjectT.position = newPosition;
         spawnedObjectT.SetParent(this.transform);
-
-
     }
 }
