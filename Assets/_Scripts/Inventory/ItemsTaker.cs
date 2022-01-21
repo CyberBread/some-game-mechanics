@@ -9,29 +9,33 @@ public class ItemsTaker : MonoBehaviour
 
     private Inventory inventory;
     private ICollectableItem item;
-    private SimpleRaycaster simpleRaycaster;
     
     private void Start()
     {
         inventory = GetComponent<Inventory>();
-        simpleRaycaster = GetComponent<SimpleRaycaster>();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetButtonDown("Interact"))
         {
-            RaycastHit hittedItem = simpleRaycaster.RaycastFromViewportCenter(takeDistance, collectableItemLayerMask);
-            if(hittedItem.transform == null)
-            {
-                return;
-            }
-
-            item = hittedItem.transform.GetComponent<ICollectableItem>();
-            if(item != null)
-            {
-                inventory.AddItem(item);
-            }
+            TakeItem();
         }
+    }
+
+    private void TakeItem()
+    {
+        RaycastHit hittedItem = RaycastExtensions.RaycastFromViewportCenter(takeDistance, collectableItemLayerMask);
+        Transform hittedItemTransform = hittedItem.transform;
+        if (hittedItemTransform == null)
+        {
+            return;
+        }
+
+        if (!hittedItemTransform.TryGetComponent<ICollectableItem>(out ICollectableItem item))
+        {
+            return;
+        }
+        inventory.AddItem(item);
     }
 }

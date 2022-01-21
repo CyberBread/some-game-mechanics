@@ -14,11 +14,15 @@ public class Inventory : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            EquipItem("BubleGun");
+            EquipItem(WeaponName.BubleGun.ToString());
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            EquipItem("Colt1911");
+            EquipItem(WeaponName.Colt1911.ToString());
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            EquipItem(WeaponName.HidingGun.ToString());
         }
     }
 
@@ -33,7 +37,7 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    public void EquipItem(string itemName)
+    private void EquipItem(string itemName)
     {
         if (!items.ContainsKey(itemName))
         {
@@ -46,16 +50,19 @@ public class Inventory : MonoBehaviour
 
         items.TryGetValue(itemName, out ICollectableItem item);
         GameObject itemGO = item.GetGameObject();
-        itemGO.transform.SetParent(itemAnchor);
+
+        Transform itemTransform = itemGO.transform;
+        itemTransform.SetParent(itemAnchor);
+        itemTransform.position = itemAnchor.position;
+        itemTransform.rotation = itemAnchor.rotation;
+
         itemGO.SetActive(true);
-        itemGO.transform.position = itemAnchor.position;
-        itemGO.transform.rotation = itemAnchor.rotation;
 
         item.isEquiped = true;
         equipedItem = item;
     }
 
-    public void UneqipItem(ICollectableItem equipedItem)
+    private void UneqipItem(ICollectableItem equipedItem)
     {
         equipedItem.isEquiped = false;
         equipedItem.GetGameObject().SetActive(false);

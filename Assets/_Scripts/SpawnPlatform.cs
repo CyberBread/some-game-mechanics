@@ -8,12 +8,12 @@ public class SpawnPlatform : MonoBehaviour
     [SerializeField] private float levitationHeight = 1f;
     [SerializeField] private float rotationSpeed = 30f;
 
-    private Transform spawnedObjectTranform;
+    private Transform spawnedObjectT;
     private GameObject spawnedObject;
 
     private void Start()
     {
-        Spawn();    
+        Spawn();
     }
 
     private void Update()
@@ -24,21 +24,23 @@ public class SpawnPlatform : MonoBehaviour
         }
     }
 
-    public void Levitate()
+    private void Levitate()
     {
         Vector3 deltaRot = Time.deltaTime * Vector3.up * rotationSpeed;
-        Vector3 newRot = spawnedObjectTranform.rotation.eulerAngles + deltaRot;
-        spawnedObjectTranform.eulerAngles = newRot;
+        Vector3 newRot = spawnedObjectT.rotation.eulerAngles + deltaRot;
+        spawnedObjectT.eulerAngles = newRot;
     }
 
-    public void Spawn()
+    private void Spawn()
     {
-        spawnedObject = Instantiate<GameObject>(spawnObjectPrefab); 
-        Vector3 spawnPosition = transform.position;
-        spawnPosition.y += levitationHeight;
-        spawnedObject.transform.position = spawnPosition;
-        spawnedObject.transform.SetParent(this.transform);
+        spawnedObject = Instantiate<GameObject>(spawnObjectPrefab);
 
-        spawnedObjectTranform = spawnedObject.transform;
+        spawnedObjectT = spawnedObject.transform;
+        Vector3 spawnPosition = spawnedObjectT.position;
+        spawnPosition.y += levitationHeight;
+        spawnedObjectT.position = spawnPosition;
+        spawnedObjectT.SetParent(this.transform);
+
+
     }
 }

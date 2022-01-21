@@ -6,15 +6,17 @@ public enum WeaponName
     None,
     PortalGun,
     BubleGun,
-    Colt1911
+    Colt1911,
+    HidingGun
 }
-
 
 public abstract class Weapon : MonoBehaviour, ICollectableItem
 {
     [SerializeField] private protected WeaponName weaponName = WeaponName.None;
     [SerializeField] private protected Transform projectileAnchor;
     [SerializeField] private protected float delayBetweenShots = 0.5f;
+
+    public bool isEquiped { get; set; }
     //private protected bool isEqiuped = false;
 
     abstract public void SetWeaponName();
@@ -22,7 +24,6 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
     abstract public void AlternativeShot();
     abstract public void Reload();
 
-    public bool isEquiped { get; set; }
 
     public void Collect()
     {
